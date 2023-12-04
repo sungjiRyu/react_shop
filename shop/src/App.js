@@ -34,22 +34,13 @@ function App() {
 
     <Routes>
         <Route path="/" element={<Home bg={bg} shoes={shoes} />}/>
-        <Route path="/detail" element={ <Detail/> }/>
+        <Route path="/detail" element={ <Detail shoes = {shoes}/> }/>
 
-        {/* Nested Routes */}
-        <Route path="/about" element={ <About/> }>
-          <Route path="member" element={<div>멤버임</div>}/>
-          <Route path="location" element={<div>위치정보임</div>}/>
-        </Route>
-
+        {/* url parameter 문법 (:id = 아무거나)  */}
+        <Route path="/detail/:id" element={ <Detail shoes = {shoes}/> }/>
 
         <Route path="*" element = {<div>없는 페이지에요</div>}/>
 
-        {/* Nested Routes 숙제 */}
-        <Route path="/event" element={<Event/>}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}/>
-          <Route path="two" element={<div>생일기념 쿠폰 받기</div>}/>
-        </Route>
     
       </Routes>
 
