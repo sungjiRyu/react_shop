@@ -1,7 +1,7 @@
 
 import App from 'react';
 
-function main(props){
+function Main(props){
     return(
         
         <>
@@ -32,4 +32,4 @@ function List(props){
     )
   }
 
-export default main;
+export default Main;

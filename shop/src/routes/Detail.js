@@ -1,5 +1,5 @@
 
-function detail(){
+function Detail(){
     return(
 <div className="container">
   <div className="row">
@@ -17,4 +17,4 @@ function detail(){
 )
 }
 
-export default detail;
+export default Detail;
