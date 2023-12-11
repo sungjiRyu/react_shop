@@ -65,8 +65,20 @@ let [discount, setdiscount] = useState(true);
     return x.id == id;
   });
 
+
+  let[fade, setFade] = useState('')
+
+ useEffect(()=>{
+  
+  setTimeout(()=> {setFade('end')}, 100)
+  
+  return ()=>{
+    setFade('')
+  }
+ },[])
+
     return(
-<div className="container">
+<div className={'containar start ' + fade}>
     {discount == true ? <DiscountModal></DiscountModal> : null}
   <div className="row">
     {count}
@@ -101,16 +113,22 @@ let [discount, setdiscount] = useState(true);
 )
 }
 function TabContent({tab}){
-// if (props.tab == 0){
-//   return <div>내용0</div>
-// }
-// else if (props.tab == 1){
-//   return <div>내용1</div>
-// }
-// else if (props.tab == 2){
-//   return <div>내용2</div>
-// }
-return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+
+ let[fade, setFade] = useState('')
+
+ useEffect(()=>{
+  // react 18버전부터 automatic batching 기능 생김
+  // 근처에 있는 state 변경함수들을 모아 딱 한번 재랜더링함(순서상관없이 한번에)
+  setTimeout(()=> {setFade('end')}, 100)
+  
+  return ()=>{
+    setFade('')
+  }
+ },[tab])
+  
+return (<div className={'start '+fade}>
+  {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+  </div>)
 }
 function DiscountModal(){
   return(
