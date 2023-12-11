@@ -1,7 +1,12 @@
 
+import axios from 'axios';
 import App from 'react';
 
+
 function Main(props){
+  
+  const shoes = props.shoes;
+
     return(
         
         <>
@@ -11,12 +16,13 @@ function Main(props){
           {
               props.shoes.map((a,i)=>{
                   return(
-                      <List shoes = {props.shoes[i]} i = {i} key = {i}></List>
+                      <List shoes = {shoes[i]} i = {i} key = {i}></List>
                       )
                     })
                 }
           </div>
           </div>
+          <button onClick={getList}>버튼</button>
           </>
           )
         }
@@ -31,5 +37,27 @@ function List(props){
         </div>
     )
   }
+
+  // axios(get)
+  function getList(props){
+    axios.get('https://codingapple1.github.io/shop/data2.json')
+    .then((result)=>{
+      console.log(result.data)
+      // let copy = [...props.shoes, ...result.data]
+      // props.setShoes(copy);
+    })
+    .catch(()=>{
+      alert('실패함')
+    })
+  }
+
+  //post
+  function postList(){
+    axios.post('https://codingapple1.github.io/shop/data2.json', {name : 'kim'})
+    // get 요청 여러개
+    Promise.all([axios.get('/url1'), axios.get('/url2')])
+    .then(()=>{})
+    }
+  
 
 export default Main;
