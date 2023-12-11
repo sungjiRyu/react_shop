@@ -1,8 +1,10 @@
 
-import App, { useEffect, useState } from 'react';
+import App, { useContext, useEffect, useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled  from 'styled-components';
+
+import { Context1 } from '../App';
 
 // styled-components 사용
 // 1. css파일 안열어도 됨(js파일에 컴포넌트로 저장)
@@ -16,6 +18,8 @@ let YellowBtn = styled.button`
 let NewBtn = styled.button(YellowBtn)
 
 function Detail(props){
+// context api 사용
+let {재고, shoes} = useContext(Context1)
 
 let [tab, setTab] = useState(0);
 
@@ -79,6 +83,7 @@ let [discount, setdiscount] = useState(true);
 
     return(
 <div className={'containar start ' + fade}>
+  {재고},{shoes[0].title}
     {discount == true ? <DiscountModal></DiscountModal> : null}
   <div className="row">
     {count}
@@ -113,7 +118,7 @@ let [discount, setdiscount] = useState(true);
 )
 }
 function TabContent({tab}){
-
+  let {재고, shoes} = useContext(Context1)
  let[fade, setFade] = useState('')
 
  useEffect(()=>{
@@ -127,7 +132,7 @@ function TabContent({tab}){
  },[tab])
   
 return (<div className={'start '+fade}>
-  {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+  {[<div>{재고}</div>, <div>{shoes[0].title}</div>, <div>내용2</div>][tab]}
   </div>)
 }
 function DiscountModal(){
