@@ -1,11 +1,12 @@
 
 import axios from 'axios';
-import App from 'react';
+import App, { useState } from 'react';
+import data from '../data';
 
 
 function Main(props){
   
-  const shoes = props.shoes;
+  let [shoes, setShoes] = useState(data);
 
     return(
         
@@ -14,7 +15,7 @@ function Main(props){
         <div className="container text-center">
         <div className="row align-items-start">
           {
-              props.shoes.map((a,i)=>{
+              shoes.map((a,i)=>{
                   return(
                       <List shoes = {shoes[i]} i = {i} key = {i}></List>
                       )
@@ -22,9 +23,21 @@ function Main(props){
                 }
           </div>
           </div>
-          <button onClick={getList}>버튼</button>
+          <button onClick={()=>{
+            axios('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{
+              let copy = [...shoes, ...result.data]
+              setShoes(copy)
+              console.log(shoes)
+            })
+            .catch(()=>alert('실패함'))
+
+          }}>버튼</button>
           </>
           )
+
+
+  
         }
 
 // 상품 목록 컴포넌트
@@ -38,18 +51,21 @@ function List(props){
     )
   }
 
-  // axios(get)
-  function getList(props){
-    axios.get('https://codingapple1.github.io/shop/data2.json')
-    .then((result)=>{
-      console.log(result.data)
-      // let copy = [...props.shoes, ...result.data]
-      // props.setShoes(copy);
-    })
-    .catch(()=>{
-      alert('실패함')
-    })
-  }
+// axios(get)
+// function getList(props){
+
+//   axios.get('https://codingapple1.github.io/shop/data2.json')
+//   .then((result)=>{
+//     console.log(result.data)
+//     let copy = [...shoes, ...result.data]
+//     setShoes(copy);
+//     console.log(shoes)
+//   })
+//   .catch(()=>{
+//     alert('실패함')
+//   })
+// }    
+  
 
   //post
   function postList(){

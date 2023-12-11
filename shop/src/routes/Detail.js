@@ -1,5 +1,6 @@
 
 import App, { useEffect, useState } from 'react';
+import { Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled  from 'styled-components';
 
@@ -14,13 +15,9 @@ let YellowBtn = styled.button`
 `
 let NewBtn = styled.button(YellowBtn)
 
-
-
-
-
-
-
 function Detail(props){
+
+let [tab, setTab] = useState(0);
 
 // useEffect
 // 랜더링이 다 된 후 실행 => 랜더링을 먼저 보여주고 어려운 작업을 실행하는 등의 장점
@@ -87,10 +84,34 @@ let [discount, setdiscount] = useState(true);
       <button className="btn btn-danger">주문하기</button> 
     </div>
   </div>
+  <Nav variant="tabs"  defaultActiveKey="">
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(0)} eventKey="link0" >버튼0</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(1)} eventKey="link1">버튼1</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(2)} eventKey="link2">버튼2</Nav.Link>
+    </Nav.Item>
+</Nav>
+<TabContent tab={tab}/>
+ 
 </div> 
 )
 }
-
+function TabContent({tab}){
+// if (props.tab == 0){
+//   return <div>내용0</div>
+// }
+// else if (props.tab == 1){
+//   return <div>내용1</div>
+// }
+// else if (props.tab == 2){
+//   return <div>내용2</div>
+// }
+return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+}
 function DiscountModal(){
   return(
     <div className="alert alert-warning" >
