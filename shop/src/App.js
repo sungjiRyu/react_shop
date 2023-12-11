@@ -8,13 +8,14 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Home from './routes/Home.js';
 import Detail from './routes/Detail.js';
+import Cart from './routes/Cart'; 
 // context api (context = state 보관함)
 export let Context1 = createContext();
 
 
 
 function App() {
-  //상품데이터(원래는 서버에서 받아와야함)
+  
 
   let [shoes, setShoes] = useState(data);
   // hook => 유용한 것들이 들어있는 함수
@@ -46,7 +47,7 @@ function App() {
         <Context1.Provider value={{재고, shoes}}>
           <Detail shoes = {shoes}/>
         </Context1.Provider> }/>
-
+        <Route path="/cart" element={<Cart/>}/>
         <Route path="*" element = {<div>없는 페이지에요</div>}/>
 
     
