@@ -8,6 +8,7 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Home from './routes/Home.js';
 import Detail from './routes/Detail.js';
+import axios from 'axios';
 
 function App() {
   //상품데이터(원래는 서버에서 받아와야함)
@@ -33,7 +34,7 @@ function App() {
     </Navbar>
 
     <Routes>
-        <Route path="/" element={<Home bg={bg} shoes={shoes} />}/>
+        <Route path="/" element={<Home bg={bg} shoes={shoes} setShoes={setShoes} />}/>
         <Route path="/detail" element={ <Detail shoes = {shoes}/> }/>
 
         {/* url parameter 문법 (:id = 아무거나)  */}

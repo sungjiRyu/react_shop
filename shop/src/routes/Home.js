@@ -1,7 +1,12 @@
 
-import App from 'react';
+import App, { useState } from 'react';
+import data from '../data';
+import axios from 'axios';
 
 function Main(props){
+
+  let [data, setData] = useState();
+
     return(
         
         <>
@@ -17,6 +22,20 @@ function Main(props){
                 }
           </div>
           </div>
+          <button onClick={()=>{
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+            .then((result)=>{
+            console.log(result.data)
+            console.log(props.shoes)
+            props.setShoes(result);
+            console.log(props.shoes)
+              })
+              .catch(()=>{
+                console.log('실패함')
+              })
+             
+            
+          }}>버튼</button>
           </>
           )
         }
