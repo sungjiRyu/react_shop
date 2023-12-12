@@ -1,7 +1,10 @@
 
-import App, { useEffect, useState } from 'react';
+import App, { useContext, useEffect, useState } from 'react';
+import { Nav } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import styled  from 'styled-components';
+
+import { Context1 } from '../App';
 
 // styled-components 사용
 // 1. css파일 안열어도 됨(js파일에 컴포넌트로 저장)
@@ -14,13 +17,11 @@ let YellowBtn = styled.button`
 `
 let NewBtn = styled.button(YellowBtn)
 
-
-
-
-
-
-
 function Detail(props){
+// context api 사용
+let {재고, shoes} = useContext(Context1)
+
+let [tab, setTab] = useState(0);
 
 // useEffect
 // 랜더링이 다 된 후 실행 => 랜더링을 먼저 보여주고 어려운 작업을 실행하는 등의 장점
@@ -68,8 +69,21 @@ let [discount, setdiscount] = useState(true);
     return x.id == id;
   });
 
+
+  let[fade, setFade] = useState('')
+
+ useEffect(()=>{
+  
+  setTimeout(()=> {setFade('end')}, 100)
+  
+  return ()=>{
+    setFade('')
+  }
+ },[])
+
     return(
-<div className="container">
+<div className={'containar start ' + fade}>
+  {재고},{shoes[0].title}
     {discount == true ? <DiscountModal></DiscountModal> : null}
   <div className="row">
     {count}
@@ -87,10 +101,40 @@ let [discount, setdiscount] = useState(true);
       <button className="btn btn-danger">주문하기</button> 
     </div>
   </div>
+  <Nav variant="tabs"  defaultActiveKey="">
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(0)} eventKey="link0" >버튼0</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(1)} eventKey="link1">버튼1</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+      <Nav.Link onClick={()=>setTab(2)} eventKey="link2">버튼2</Nav.Link>
+    </Nav.Item>
+</Nav>
+<TabContent tab={tab}/>
+ 
 </div> 
 )
 }
+function TabContent({tab}){
+  let {재고, shoes} = useContext(Context1)
+ let[fade, setFade] = useState('')
 
+ useEffect(()=>{
+  // react 18버전부터 automatic batching 기능 생김
+  // 근처에 있는 state 변경함수들을 모아 딱 한번 재랜더링함(순서상관없이 한번에)
+  setTimeout(()=> {setFade('end')}, 100)
+  
+  return ()=>{
+    setFade('')
+  }
+ },[tab])
+  
+return (<div className={'start '+fade}>
+  {[<div>{재고}</div>, <div>{shoes[0].title}</div>, <div>내용2</div>][tab]}
+  </div>)
+}
 function DiscountModal(){
   return(
     <div className="alert alert-warning" >
