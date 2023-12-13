@@ -1,13 +1,4 @@
 
-<<<<<<< HEAD
-import App, { useState } from 'react';
-import data from '../data';
-import axios from 'axios';
-
-function Main(props){
-
-  let [data, setData] = useState();
-=======
 import axios from 'axios';
 import App, { useState } from 'react';
 import data from '../data';
@@ -16,7 +7,6 @@ import data from '../data';
 function Main(props){
   
   let [shoes, setShoes] = useState(data);
->>>>>>> 73e1129777462db31f44675caec26618f12b7819
 
     return(
         
@@ -34,20 +24,6 @@ function Main(props){
           </div>
           </div>
           <button onClick={()=>{
-<<<<<<< HEAD
-            axios.get('https://codingapple1.github.io/shop/data2.json')
-            .then((result)=>{
-            console.log(result.data)
-            console.log(props.shoes)
-            props.setShoes(result);
-            console.log(props.shoes)
-              })
-              .catch(()=>{
-                console.log('실패함')
-              })
-             
-            
-=======
             axios('https://codingapple1.github.io/shop/data2.json')
             .then((result)=>{
               let copy = [...shoes, ...result.data]
@@ -56,7 +32,6 @@ function Main(props){
             })
             .catch(()=>alert('실패함'))
 
->>>>>>> 73e1129777462db31f44675caec26618f12b7819
           }}>버튼</button>
           </>
           )

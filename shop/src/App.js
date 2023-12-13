@@ -8,15 +8,11 @@ import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Home from './routes/Home.js';
 import Detail from './routes/Detail.js';
-<<<<<<< HEAD
-import axios from 'axios';
-=======
 import Cart from './routes/Cart'; 
 // context api (context = state 보관함)
 export let Context1 = createContext();
 
 
->>>>>>> 73e1129777462db31f44675caec26618f12b7819
 
 function App() {
   
