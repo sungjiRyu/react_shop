@@ -3,10 +3,11 @@ import { configureStore, createSlice } from "@reduxjs/toolkit"
 
 let user = createSlice({
     name: 'user',
-    initialState : 'Kim',
+    initialState : {name : 'kim', age : 20},
     reducers : {
       changeName(state){
-        return 'john ' + state
+        // return {name : 'park', age : 20}
+        state.name = 'park'
       }
     }
 })
@@ -20,11 +21,18 @@ let stock = createSlice({
         {id : 2, name : 'Grey Yordan', count : 1}
       ],
     reducers : {
-      changeCount(state){
+      addCount(state, action){
+        let id = state.findIndex((a)=>{return a.id == action.payload })
+        state[id].count ++
+      },
+      addItem(state, action){
+        state.push(action.payload)
       }
     }
+    
 })
 
+export let { addCount, addItem } = stock.actions
 
 
 

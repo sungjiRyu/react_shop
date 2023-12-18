@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import styled  from 'styled-components';
 
 import { Context1 } from '../App';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../store';
 
 // styled-components 사용
 // 1. css파일 안열어도 됨(js파일에 컴포넌트로 저장)
@@ -18,6 +20,9 @@ let YellowBtn = styled.button`
 let NewBtn = styled.button(YellowBtn)
 
 function Detail(props){
+
+let dispatch = useDispatch();
+
 // context api 사용
 let {재고, shoes} = useContext(Context1)
 
@@ -28,17 +33,8 @@ let [tab, setTab] = useState(0);
 // 어려운 연산, 서버에서 데이터 가져오기, 타이머 등
 //Side Effect => 함수의 핵심기능과 상관없는 부가기능 에서 따움(왜 Effect?)
 
-// 상품 수량 입력
-let [quintity, setQuintity] = useState('');
-
 useEffect(()=>{
 //mount, update시 실행
-// console.log('안녕');
-
-if(isNaN(quintity) == true){
-  alert('ㄴㄴ')
-}
-
 
 // 타이머 (실행할 코드, 밀리세컨드)
 let timer = setTimeout(()=>{setdiscount(false)}, 2000);
@@ -51,7 +47,7 @@ return () =>{
 }
 
 // mount  or [변수] <<< 이게 변할때 마다 실행(dependency가 없으면 update될때는 실행 x)
-},[quintity])
+})
 
 
 // 재랜더링(update)을 위해 state 함수 생성
@@ -83,7 +79,8 @@ let [discount, setdiscount] = useState(true);
 
     return(
 <div className={'containar start ' + fade}>
-  {재고},{shoes[0].title}
+  {console.log(shoesId)}
+  {/* {재고},{shoes[id].title} */}
     {discount == true ? <DiscountModal></DiscountModal> : null}
   <div className="row">
     {count}
@@ -95,10 +92,9 @@ let [discount, setdiscount] = useState(true);
       <h4 className="pt-5">{shoesId.title}</h4>
       <p>{shoesId.content}</p>
       <p>{shoesId.price}원</p>
-      <input onChange={(e)=>{
-        setQuintity(e.target.value);
-      }}></input>
-      <button className="btn btn-danger">주문하기</button> 
+      <button className="btn btn-danger" onClick={()=>{
+        dispatch(addItem(shoesId))
+      }}>주문하기</button> 
     </div>
   </div>
   <Nav variant="tabs"  defaultActiveKey="">
