@@ -16,11 +16,17 @@ export let Context1 = createContext();
 
 function App() {
   
+  let obj = {name : 'kim'};
+
+  localStorage.setItem('data',   JSON.stringify(obj));
+  let data = localStorage.getItem('data')
+  console.log(JSON.parse(data));
+
 
   let [shoes, setShoes] = useState(data);
   // hook => 유용한 것들이 들어있는 함수
-  let navigate = useNavigate();   // 페이지 이동을 도와주는 함수
   let [재고] = useState([10,11,12]);
+  let navigate = useNavigate();   // 페이지 이동을 도와주는 함수
 
   return (
     <div className="App"> 
